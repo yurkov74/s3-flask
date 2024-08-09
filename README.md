@@ -66,8 +66,8 @@ docker compose down                 # stop the web app and the storage service
 
 ### Accessing the web app
 
-The app's web service is available at localhost:5000
+The app's web service is available at http://localhost:5000
 
 ### S3-storage administration
 
-The storage admin pannel should be available in the browser at localhost:9090
+The storage admin pannel should be available in the browser at http://localhost:9090
