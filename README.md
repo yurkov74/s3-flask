@@ -22,8 +22,6 @@ The materials used during creating of this projects:
 - [How to Upload Files from Flask to MinIO on Docker](https://medium.com/data-engineering-indonesia/how-to-upload-files-from-flask-to-minio-on-docker-14aade73596f)
 - [MinIO for developers - official mini-tutorial](https://youtube.com/playlist?list=PLFOIsHSSYIK37B3VtACkNksUw8_puUuAC&si=xsmtzyfDA3Q5cKMU)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/videoseries?si=bWpmNadhJwIW84tZ&amp;list=PLFOIsHSSYIK37B3VtACkNksUw8_puUuAC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
 The project's web part has been written and tested on Python v3.12.4.
 
 ## Setting up the project
