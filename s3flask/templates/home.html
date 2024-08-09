@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0">
+    <title>UPLOAD</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <div>
+      <h1>Upload File</h1>
+      <form method=post enctype=multipart/form-data>
+        <input type=file name=file>
+        <input type=submit value=Upload>
+      </form>
+    </div>
+    <hr>
+
+    <div>
+      <div class="objects-table-heading">
+        <h1>Storage objects</h1>
+      </div>
+      <table class="objects-table">
+        <!-- Table Header Row -->
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>object_name</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <!-- Table Elements (Rows) -->
+        <tbody>
+          {% for object, d_link in objects %}
+            <tr>
+              <td>{{ object.object_name }}</td>
+              <td>{{ object.object_name }}</td>
+              <td class="object-actions">
+                <a class="object-actions-link" href="{{ d_link }}">Download</a>
+                <span> | </span>
+                <a class="object-actions-link" href="{{ url_for('delete_object', obj_name=object.object_name) }}">Delete</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

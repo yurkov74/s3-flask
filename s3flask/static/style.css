@@ -1,0 +1,64 @@
+body {
+  width: 80%;
+  margin: auto;
+}
+
+/* objects List Styling
+ ********************/
+ .objects-container {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 960px;
+}
+
+table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: .9rem;
+}
+
+.objects-table-heading {
+  display: flex;
+  justify-content: space-between;
+}
+
+.objects-table-heading-links {
+  display: flex;
+  justify-content: space-between;
+}
+
+td, th {
+  border: 1px solid #ddd;
+  padding: 1.0rem 0.8rem;
+  overflow: hidden;
+}
+
+th {
+  padding-bottom: .8rem;
+  border-top: 2px solid #DDD;
+  border-bottom: 4px solid #DDD;
+  text-align: left;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #F9F9F9;
+}
+
+tfoot td {
+  background-color: #DDD;
+}
+
+table a {
+  text-decoration: underline;
+  font-weight: 700;
+}
+
+.objects-actions {
+  display: block;
+}
+
+.objects-actions-link + .objects-actions-link {
+  margin-left: 0.5rem;
+}

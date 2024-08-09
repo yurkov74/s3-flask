@@ -1,8 +1,8 @@
 FROM python:3.12
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY requirements.txt s3flask/* ./
+COPY requirements.txt s3flask ./
 
 RUN \
   pip install --upgrade pip && \

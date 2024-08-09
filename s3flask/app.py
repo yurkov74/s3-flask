@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect
+from flask import Flask, request, redirect, render_template, url_for
 from werkzeug.utils import secure_filename
 from minio import Minio
 import os
@@ -10,8 +10,10 @@ BUCKET_NAME = os.environ.get("MINIO_BUCKET")
 MINIO_API_HOST = os.environ.get("MINIO_ENDPOINT")
 
 
-def upload_object(filename, data, length):
-    client = Minio(MINIO_API_HOST, ACCESS_KEY, SECRET_KEY, secure=False)
+client = Minio(MINIO_API_HOST, ACCESS_KEY, SECRET_KEY, secure=False)
+
+
+def upload_object(client, filename, data, length):
 
     # Make bucket if not exist.
     found = client.bucket_exists(BUCKET_NAME)
@@ -30,12 +32,20 @@ def allowed_file(filename):
         )[1].lower() in ALLOWED_EXTENSIONS
 
 
-app = Flask(__name__)
+def get_download_link(obj_name):
+    return client.get_presigned_url(
+        'GET',
+        BUCKET_NAME,
+        obj_name
+    )
+
+
+app = Flask(__name__, template_folder='./templates')
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 
 
 @app.route("/", methods=["GET", "POST"])
-def upload_file():
+def index():
     if request.method == "POST":
         # check if the post request has the file part
         if "file" not in request.files:
@@ -48,30 +58,23 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             size = os.fstat(file.fileno()).st_size
-            upload_object(filename, file, size)
+            upload_object(client, filename, file, size)
             return redirect(request.url)
 
-    html_doc = """
-        <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1.0">
-                <title>UPLOAD</title>
-            </head>
-            <body>
-                <h1>Upload File</h1>
-                <form method=post enctype=multipart/form-data>
-                    <input type=file name=file>
-                    <input type=submit value=Upload>
-                    <hr>
-                </form>
-            </body>
-        </html>
-        """
-    return html_doc
+    # get a bucket's file list
+    objects = []
+    if client.bucket_exists(BUCKET_NAME):
+        storage_objects = client.list_objects(BUCKET_NAME)
+        for so in storage_objects:
+            objects.append((so, get_download_link(so.object_name)))
+
+    return render_template('home.html', objects=objects)
+
+
+@app.route("/<obj_name>/delete")
+def delete_object(obj_name):
+    client.remove_object(BUCKET_NAME, obj_name)
+    return redirect(url_for('index'))
 
 
 if __name__ == "__main__":

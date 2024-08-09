@@ -5,7 +5,12 @@ Content:
 - [About project](#about-project)
 - [Setting up the project](#setting-up-the-project)
   - [Environment variables](#environment-variables)
+  - [hosts](#hosts)
 - [Using the project](#using-the-project)
+  - [Basic info](#basic-info)
+  - [Starting/stopping the app](#startingstopping-the-app)
+  - [Accessing the web app](#accessing-the-web-app)
+  - [S3-storage administration](#s3-storage-administration)
 
 
 ## About project
@@ -15,6 +20,8 @@ A single-node minIO server running on a docker image is using as an S3-alternati
 
 The materials used during creating of this projects:
 - [How to Upload Files from Flask to MinIO on Docker](https://medium.com/data-engineering-indonesia/how-to-upload-files-from-flask-to-minio-on-docker-14aade73596f)
+
+The project's web part has been written and tested on Python v3.12.4.
 
 ## Setting up the project
 
@@ -32,11 +39,20 @@ MINIO_BUCKET=flask
 MINIO_ENDPOINT=${MINIO_HOST}:${MINIO_SERVER_PORT}
 ```
 
+### hosts
+
+In order to make the download feature working properly please add our storage host domain name (which we have defined as MINIO_HOST environment variable in .env file, by default it's 'minio') to the hosts file on your local machine.
+```
+127.0.0.1			minio
+```
+
 ## Using the project
+
+### Basic info
 
 The app is built on 2 services:
 - minio: S3-compatible storage service for the files of the supported types (txt, pdf, png, jpg, jpeg, gif)
-- web: a small web app service on python Flask library which allows us to learn and demonstrate some basic examples of working with S3 storage like uploading a file to the storage.
+- web: a small web app service on python Flask library which allows us to learn and demonstrate some basic examples of working with S3 storage like uploading a file to the storage, downloading or deleting it.
 
 Both services are configured in the docker-compose.yml file and are running on the docker containers. The image for the web service is being built on the startup if it's hasn't been built yet or the code has been changed.
 
