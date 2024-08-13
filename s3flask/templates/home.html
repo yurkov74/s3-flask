@@ -27,7 +27,7 @@
         <thead>
           <tr>
             <th>Name</th>
-            <th>object_name</th>
+            <th>Last modified</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -37,7 +37,7 @@
           {% for object, d_link in objects %}
             <tr>
               <td>{{ object.object_name }}</td>
-              <td>{{ object.object_name }}</td>
+              <td>{{ object.last_modified }}</td>
               <td class="object-actions">
                 <a class="object-actions-link" href="{{ d_link }}">Download</a>
                 <span> | </span>

@@ -47,6 +47,36 @@ In order to make the download feature working properly please add our storage ho
 127.0.0.1			minio
 ```
 
+## Configure the project lically
+
+### Virtual environment
+
+```
+cd <project-root-folder>                      # go to the project's folder
+# linux
+python3 -m pip install --upgrade pip          # upgrade global pip
+python3 -m venv venv                          # install virtual environment
+source venv/bin/activate                      # activate virtual environment
+(venv) python3 -m pip install --upgrade pip   # upgrade pip in the venv
+# windows
+pip install --upgrade pip                     # upgrade global pip
+python -m venv venv                           # install virtual environment
+venv/scripts/activate                             # activate virtual environment
+(venv) python -m pip install --upgrade pip    # upgrade pip in the venv
+```
+
+Deactivate virtual environment:
+```
+(venv) deactivate
+```
+
+### Project dependencies
+
+```
+cd <project-root-folder>/src                  # go to the source code rrot folder
+(venv) pip install -r requirements.txt        # app dependencies
+```
+
 ## Using the project
 
 ### Basic info
@@ -56,6 +86,15 @@ The app is built on 2 services:
 - web: a small web app service on python Flask library which allows us to learn and demonstrate some basic examples of working with S3 storage like uploading a file to the storage, downloading or deleting it.
 
 Both services are configured in the docker-compose.yml file and are running on the docker containers. The image for the web service is being built on the startup if it's hasn't been built yet or the code has been changed.
+
+### Starting the web service locally
+
+Comment web service in the docker-compose.yml for that.
+```
+cd <project-root-folder>                      # go to the project's folder
+(venv) flask --app s3flask/app run            # start the flask app in normal mode
+(venv) flask --app s3flask/app run --debug    # start the flask app in debug mode
+```
 
 ### Starting/stopping the app
 

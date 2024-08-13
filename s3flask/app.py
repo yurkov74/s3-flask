@@ -2,6 +2,11 @@ from flask import Flask, request, redirect, render_template, url_for
 from werkzeug.utils import secure_filename
 from minio import Minio
 import os
+from dotenv import load_dotenv
+
+
+APP_ROOT = os.getcwd()
+load_dotenv(dotenv_path=os.path.join(APP_ROOT, '.env'))
 
 ALLOWED_EXTENSIONS = {"txt", "pdf", "png", "jpg", "jpeg", "gif"}
 ACCESS_KEY = os.environ.get("MINIO_ROOT_USER")
